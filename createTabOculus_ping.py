@@ -71,8 +71,8 @@ def save_RTT_to_csv(proc_log_path, net_log_path, procRTT_csv_path, netRTT_csv_pa
     network_RTT_csv(in_log_path=net_log_path, out_csv_path=netRTT_csv_path)
 
 if __name__ == '__main__':
-    link = 'https://hub.metaust.link/qVDfzUb/petty-loud-room'
-    dir_name = 'results/synth7Oculus'
+    link = 'https://hub.metaust.link/6zywQYj'
+    dir_name = 'results_dthub/synth10Oculus'
     concurrent_users = 2
 
     win_iface = "Wi-Fi"
