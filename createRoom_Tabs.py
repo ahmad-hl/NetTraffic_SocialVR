@@ -22,22 +22,9 @@ def launchTabs(link):
     chrome_options.add_argument('use-fake-ui-for-media-stream')
     chrome_options.add_experimental_option("detach", True)
 
-    platform_os = platform.system().lower()
-    try:
-        if platform_os == 'windows':
-            chromdriver_path = 'chromedriver.exe'
-            driver = webdriver.Chrome(executable_path=chromdriver_path, options=chrome_options)
-            # enter room
-            button_sequence = ["Accept", "Enter Room"]  # "Join Room",
-        else:
-            #cash /home/symlab/.wdm/drivers/chromedriver/linux64/102.0.5005.61/chromedriver
-            chromdriver_path = 'chromedriver'
-            driver = webdriver.Chrome(executable_path=chromdriver_path, options=chrome_options)
-            # enter room
-            button_sequence = ["Accept", "Enter Room"] #"Join Room",
-    except:
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
+    button_sequence = ["Accept", "Enter Room"]  # "Join Room",
     driver.get(link)
     running_drivers.append(driver)
 
@@ -117,7 +104,7 @@ def clear_driversCash():
     print("Cash of drivers is clear...")
 
 if __name__ == '__main__':
-    tabs = 8
+    tabs = 2
     create_room_uri = 'https://hub.metaust.link/scenes/pKqPdPU'
     new_room_uri = createRoomBy(create_room_uri)
     new_room_uri_comps = new_room_uri.split("//")[1].split("/")
@@ -125,14 +112,14 @@ if __name__ == '__main__':
     print("Room url {}, Room ID: {}".format(new_room_uri_comps, room_id))
 
     #Wait 1 minute to room uri
-    Event().wait(90)
+    Event().wait(30)
 
     #download json file on exit
-    dir_name = 'results/synth6'
+    dir_name = 'results_dthub/synth10'
     isExist = os.path.exists(dir_name)
     if not isExist:
         os.mkdir(dir_name)
-    atexit.register(downloadJSON_to_csv, tabs=tabs*2, room_id=room_id, out_dir_name=dir_name)
+    atexit.register(downloadJSON_to_csv, tabs=tabs, room_id=room_id, out_dir_name=dir_name)
     atexit.register(clear_driversCash)
 
     #create #processes = tabs
@@ -142,14 +129,14 @@ if __name__ == '__main__':
         p.start()
         processes.append(p)
 
-    # win_iface = "Wi-Fi"
-    ubuntu_iface = "wlp10s0"
+    win_iface = "Wi-Fi"
+    # ubuntu_iface = "wlp10s0"
     # measure_accurate_ul_dl(tabs, interface = ubuntu_iface)
-    uldl_process = Process(target=measure_accurate_ul_dl, args=(dir_name, tabs*2, ubuntu_iface,))
+    uldl_process = Process(target=measure_accurate_ul_dl, args=(dir_name, tabs, win_iface,))
     uldl_process.start()
 
     #Wait 2 minutes
-    minutes = 8
+    minutes = 5
     Event().wait(60* minutes)
 
     print("\n**************** TERMINATE ************************")

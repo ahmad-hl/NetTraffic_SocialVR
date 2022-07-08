@@ -47,7 +47,7 @@ def downloadJSON_to_csv(tabs, room_id, out_dir_name):
 
 
 if __name__ == '__main__':
-    dir_name = 'results/synth8'
+    dir_name = 'results_dthub/synth8'
     isExist = os.path.exists(dir_name)
     if not isExist:
         os.mkdir(dir_name)
