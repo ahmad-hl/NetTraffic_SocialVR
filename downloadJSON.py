@@ -29,6 +29,8 @@ def downloadJSON_to_csv(tabs, room_id, out_dir_name):
         out_csv.write("enter_room_ms,avatar_sel_ms,users_no\n")
     with open(out_file_name, "+a") as out_csv:
         for client_id in client_ids:
+            scene_load_time = 0
+            avatar_selected_time = 0
             try:
                 clientDF = loadTimeDF.loc[loadTimeDF.client_id == client_id]
                 link_access_ts = clientDF.loc[clientDF.event_id == 'link_access']['server_timestamp'].values[0]
@@ -39,16 +41,16 @@ def downloadJSON_to_csv(tabs, room_id, out_dir_name):
                 avatar_selected_time = avatar_selected_ts - link_access_ts
                 print("Latency: avatar selected {} sec, joining room {} sec".format(avatar_selected_time / 1000,
                                                                                     scene_load_time / 1000))
-            except:
-                print("Latency: avatar selected {} sec, joining room {} sec".format(avatar_selected_time / 1000,
-                                                                                    scene_load_time / 1000))
-            finally:
                 out_csv.write("{}, {},{},{}\n".format(client_id, scene_load_time, avatar_selected_time, tabs))
+            except:
+                out_csv.write("{}, {},{},{}\n".format(client_id, scene_load_time, avatar_selected_time, tabs))
+                pass
+
 
 
 if __name__ == '__main__':
-    dir_name = 'results_dthub/synth8'
+    dir_name = 'results_conf/synth13'
     isExist = os.path.exists(dir_name)
     if not isExist:
         os.mkdir(dir_name)
-    downloadJSON_to_csv(3, '7x7hbSL', dir_name)
+    downloadJSON_to_csv(2, 'Hd92wfL', dir_name)

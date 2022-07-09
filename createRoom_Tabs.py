@@ -84,18 +84,23 @@ def downloadJSON_to_csv(tabs, room_id, out_dir_name):
         out_csv.write("enter_room_ms,avatar_sel_ms,users_no\n")
     with open(out_file_name, "+a") as out_csv:
         for client_id in client_ids:
+            scene_load_time = 0
+            avatar_selected_time = 0
             try:
                 clientDF = loadTimeDF.loc[loadTimeDF.client_id == client_id]
                 link_access_ts = clientDF.loc[clientDF.event_id == 'link_access']['server_timestamp'].values[0]
-                avatar_selected_ts = clientDF.loc[clientDF.event_id == 'avatar_selected']['server_timestamp'].values[0]
                 joined_room_ts = clientDF.loc[clientDF.event_id == 'joined_room']['server_timestamp'].values[0]
-                avatar_selected_time = avatar_selected_ts - link_access_ts
                 scene_load_time = joined_room_ts - link_access_ts
+                avatar_selected_time = scene_load_time
+                avatar_selected_ts = clientDF.loc[clientDF.event_id == 'avatar_selected']['server_timestamp'].values[0]
+                avatar_selected_time = avatar_selected_ts - link_access_ts
                 print("Latency: avatar selected {} sec, joining room {} sec".format(avatar_selected_time / 1000,
                                                                                     scene_load_time / 1000))
                 out_csv.write("{},{},{}\n".format(scene_load_time, avatar_selected_time, tabs))
             except Exception as ex:
                 print('Error: '.format(ex))
+                if scene_load_time != 0:
+                    out_csv.write("{},{},{}\n".format(scene_load_time, avatar_selected_time, tabs))
                 pass
 
 def clear_driversCash():
@@ -104,7 +109,7 @@ def clear_driversCash():
     print("Cash of drivers is clear...")
 
 if __name__ == '__main__':
-    tabs = 2
+    tabs = 16
     create_room_uri = 'https://hub.metaust.link/scenes/pKqPdPU'
     new_room_uri = createRoomBy(create_room_uri)
     new_room_uri_comps = new_room_uri.split("//")[1].split("/")
@@ -115,7 +120,7 @@ if __name__ == '__main__':
     Event().wait(30)
 
     #download json file on exit
-    dir_name = 'results_dthub/synth10'
+    dir_name = 'results_conf/synth13'
     isExist = os.path.exists(dir_name)
     if not isExist:
         os.mkdir(dir_name)
