@@ -57,7 +57,7 @@ parentDir = os.path.dirname(os.path.realpath(__file__))
 ULDLoculus_2_PATH = os.path.join(parentDir, '..',oculus_dir_name, 'ULDLoculus_2.log')
 ULDLoculus_4_PATH = os.path.join(parentDir, '..', oculus_dir_name, 'ULDLoculus_4.log')
 ULDLoculus_8_PATH = os.path.join(parentDir, '..', oculus_dir_name, 'ULDLoculus_8.log')
-ULDLoculus_16_PATH = os.path.join(parentDir, '..', oculus_dir_name, 'ULDLoculus_16.log')
+ULDLoculus_16_PATH = os.path.join(parentDir, '..', oculus_dir_name, 'ULDLoculus_16.1.log')
 
 uldlOculus2DF = pd.read_csv(ULDLoculus_2_PATH, sep=',')
 # uldlOculus2DF = uldlOculus2DF.loc[(uldlOculus2DF['ul_kBps'] >= 0.1) & (uldlOculus2DF['dl_kBps'] >= 0.1)]

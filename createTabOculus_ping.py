@@ -13,8 +13,8 @@ def launchTab(link):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--incognito")
     #Make fake audio
-    chrome_options.add_argument('use-fake-device-for-media-stream')
-    chrome_options.add_argument('use-fake-ui-for-media-stream')
+    # chrome_options.add_argument('use-fake-device-for-media-stream')
+    # chrome_options.add_argument('use-fake-ui-for-media-stream')
     chrome_options.add_experimental_option("detach", True)
 
     platform_os = platform.system().lower()
@@ -58,11 +58,11 @@ def launchTab(link):
     WebDriverWait(driver, 500).until(EC.presence_of_element_located((By.CLASS_NAME, "a-canvas")))
     print("Entered room")
 
-    while True:
-        driver.execute_script("document.dispatchEvent(new KeyboardEvent('keydown', {'key': 'w'}))")
-        driver.execute_script("document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'w'}))")
-        driver.execute_script("document.dispatchEvent(new KeyboardEvent('keydown', {'key': 'q'}))")
-        driver.execute_script("document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'q'}))")
+    # while True:
+    #     driver.execute_script("document.dispatchEvent(new KeyboardEvent('keydown', {'key': 'w'}))")
+    #     driver.execute_script("document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'w'}))")
+    #     driver.execute_script("document.dispatchEvent(new KeyboardEvent('keydown', {'key': 'q'}))")
+    #     driver.execute_script("document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'q'}))")
 
 
 def save_RTT_to_csv(proc_log_path, net_log_path, procRTT_csv_path, netRTT_csv_path):
@@ -71,8 +71,8 @@ def save_RTT_to_csv(proc_log_path, net_log_path, procRTT_csv_path, netRTT_csv_pa
     network_RTT_csv(in_log_path=net_log_path, out_csv_path=netRTT_csv_path)
 
 if __name__ == '__main__':
-    link = 'https://hub.metaust.link/kUdUSif'
-    dir_name = 'results_conf/synth13Oculus'
+    link = 'https://hub.metaust.link/eJ9JEUa/711-demo'
+    dir_name = 'results_ux/synth15Oculus'
     concurrent_users = 16
 
     win_iface = "Wi-Fi"
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     uldl_process.start()
 
     #measure Process and Network RTT
-    seconds = 5 * 60   # num pings = 10 minutes
+    seconds = 15 * 60   # num pings = 10 minutes
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
     # process Ping
