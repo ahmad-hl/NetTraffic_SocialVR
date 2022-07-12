@@ -1,6 +1,4 @@
-import pandas
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import os, math
 
@@ -75,10 +73,10 @@ width = 0.4  # the width of the bars: can also be len(x) sequence
 f, axes = plt.subplots(2, 1) #, figsize=(10,7)
 plt.margins(0.01, 0)
 # color='skyblue': indianred, dodgerblue, turquoise, mediumseagreen, lightgreen
-p1 = axes[0].bar(ind, rttMeans, width, yerr=rttCIs, color='dodgerblue', log=False,
-            capsize=3, error_kw=dict(elinewidth=1, ecolor='blue'), label='Avatar Selected')
+p1 = axes[0].bar(ind, rttMeans, width, yerr=rttCIs, color='darkblue', log=False,
+             error_kw=dict(elinewidth=2, ecolor='blue'), label='Avatar Selected')
 p2 = axes[1].bar(ind, proc_rttMeans, width, yerr=proc_rttCIs, color='skyblue', log=False,
-            capsize=3, error_kw=dict(elinewidth=1, ecolor='black'), label='Room Joined')
+             error_kw=dict(elinewidth=2, ecolor='black'), label='Room Joined')
 plt.margins(0.01, 0)
 
 # Optional code - Make plot look nicer
@@ -110,5 +108,5 @@ for tick in axes[1].get_yticklabels():
 # plt.legend(loc='upper left', fontsize=13, title="Latency", fancybox=True)
 parentDir = os.path.dirname(os.path.realpath(__file__))
 Fig_PATH = os.path.join(parentDir, 'figures', 'RTT.pdf')
-# plt.savefig(Fig_PATH)
+plt.savefig(Fig_PATH)
 plt.show()
