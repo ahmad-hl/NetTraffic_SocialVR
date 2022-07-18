@@ -36,6 +36,7 @@ uldl16DF = pd.concat([lab_uldl16DF, dthub_uldl16DF, conf_uldl16DF], ignore_index
 uldl16DF['dl_kBps'] = uldl16DF['dl_kBps'] * 8 / 1024 # KB/s to Mb/s
 
 print(uldl16DF.groupby(by=["network"], dropna=False).describe())
+print(uldl16DF.loc[uldl16DF.network=='Lab WiFi'].describe())
 
 # Draw a nested barplot by species and sex
 g = sns.barplot(

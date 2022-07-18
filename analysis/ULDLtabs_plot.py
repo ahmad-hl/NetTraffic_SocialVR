@@ -39,7 +39,7 @@ font_dict = {'fontsize': 13,
  'fontweight' : 'bold'}
 
 ax1.plot( uldl2DF['ul_kBps'], color='blue', linestyle='dashed', linewidth=2, label='Acc Upload')
-ax1.plot( uldl2DF['dl_kBps'], color='red', linewidth=2, label='Acc Download')
+ax1.plot( uldl2DF['dl_kBps'], color='magenta', linewidth=2, label='Acc Download')
 ax1.spines['right'].set_visible(False)
 ax1.spines['top'].set_visible(False)
 # ax1.legend(ncol=2)
@@ -51,21 +51,21 @@ ax1.tick_params(axis='both', which='major', labelsize=12)
 ax1.tick_params(axis='both', which='minor', labelsize=10)
 
 ax2.plot( uldl4DF['ul_kBps'], color='blue', linestyle='dashed', linewidth=2, label='Acc Upload')
-ax2.plot( uldl4DF['dl_kBps'], color='red',linewidth=2, label='Acc Download')
+ax2.plot( uldl4DF['dl_kBps'], color='magenta',linewidth=2, label='Acc Download')
 ax2.spines['right'].set_visible(False)
 ax2.spines['top'].set_visible(False)
 ax2.legend(ncol=2, loc='lower right')
 # ax2.set_ylabel('KB/s')
 ax2.set_yscale('symlog')
-ax2.set_title('Desktop users: 4', font_dict, loc='right')
+ax2.set_title('Desktop users: 4', font_dict, loc='right', y= 1)
 # We change the fontsize of minor ticks label
 ax2.tick_params(axis='both', which='major', labelsize=12)
 ax2.tick_params(axis='both', which='minor', labelsize=10)
-
+ax2.legend(ncol=1, loc='upper right', fontsize='medium', columnspacing=0)
 # {"linear", "log", "symlog", "logit"
 
 ax3.plot( uldl8DF['ul_kBps'], color='blue', linestyle='dashed', linewidth=2, label='Acc Upload')
-ax3.plot( uldl8DF['dl_kBps'], color='red',linewidth=2, label='Acc Download')
+ax3.plot( uldl8DF['dl_kBps'], color='magenta',linewidth=2, label='Acc Download')
 ax3.spines['right'].set_visible(False)
 ax3.spines['top'].set_visible(False)
 # ax3.legend(ncol=2)
@@ -77,7 +77,7 @@ ax3.tick_params(axis='both', which='major', labelsize=12)
 ax3.tick_params(axis='both', which='minor', labelsize=10)
 
 ax4.plot( uldl16DF['ul_kBps'], color='blue', linestyle='dashed', linewidth=2, label='Acc Upload')
-ax4.plot( uldl16DF['dl_kBps'], color='red',linewidth=2, label='Acc Download')
+ax4.plot( uldl16DF['dl_kBps'], color='magenta',linewidth=2, label='Acc Download')
 ax4.spines['right'].set_visible(False)
 ax4.spines['top'].set_visible(False)
 # ax4.legend(ncol=2)

@@ -1,5 +1,5 @@
 import time
-import psutil
+import psutil, os
 
 def on_calculate_speed(interface):
     dt = 1  # I find that dt = 1 is good enough
@@ -28,12 +28,9 @@ def on_calculate_speed(interface):
         return [t1, ul, dl]
         t0 = time.time()
 
-def measure_accurate_ul_dl(dir_name, tabs = 1, interface = "Wi-Fi", oculus=False ):
+def measure_accurate_ul_dl(dir_name, file_name, tabs = 1, interface = "Wi-Fi" ):
     print(psutil.net_io_counters(pernic=True))
-    if oculus:
-        out_log = '{}/ULDLoculus_{}.log'.format(dir_name, tabs)
-    else:
-        out_log = '{}/ULDL_{}.log'.format(dir_name, tabs)
+    out_log = '{}/{}_{}.log'.format(dir_name,file_name, tabs)
 
     with open(out_log, "w", newline='\n') as rttcsv:
         rttcsv.write("ts,ul_kBps,dl_kBps\n")
@@ -51,6 +48,10 @@ def measure_accurate_ul_dl(dir_name, tabs = 1, interface = "Wi-Fi", oculus=False
 if __name__ == '__main__':
     tabs = 1 #int(sys.argv[1])
     ubuntu_iface = "wlp10s0"
-    dir_name = "results_spatial/outlog"
+    dir_name = "results_vr_platforms/uldllog"
+    file_name = 'spatial.uldl' #
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+
     # win_iface = "Wi-Fi"
-    measure_accurate_ul_dl(dir_name, tabs=tabs, interface=ubuntu_iface)
+    measure_accurate_ul_dl(dir_name, file_name, tabs=tabs, interface=ubuntu_iface)
