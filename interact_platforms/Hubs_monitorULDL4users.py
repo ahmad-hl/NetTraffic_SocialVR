@@ -2,12 +2,14 @@ from selenium import webdriver, common
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Spatial_ULDL import measure_accurate_ul_dl
+from MeasureULDL import measure_accurate_ul_dl
 from webdriver_manager.chrome import ChromeDriverManager
 from multiprocessing import Process
-import platform
-from PingServerProcess import process_RTT_csv, network_RTT_csv
 import os
+from clearCash import clear_cache
+
+
+running_drivers = []
 
 def launchTab(link):
     chrome_options = webdriver.ChromeOptions()
@@ -17,24 +19,11 @@ def launchTab(link):
     chrome_options.add_argument('use-fake-ui-for-media-stream')
     chrome_options.add_experimental_option("detach", True)
 
-    platform_os = platform.system().lower()
-    try:
-        if platform_os == 'windows':
-            chromdriver_path = '../chromedriver.exe'
-            driver = webdriver.Chrome(executable_path=chromdriver_path, options=chrome_options)
-            # enter room
-            button_sequence = ["Accept", "Enter Room"]  # "Join Room",
-        else:
-            #cash /home/symlab/.wdm/drivers/chromedriver/linux64/102.0.5005.61/chromedriver
-            chromdriver_path = '../chromedriver'
-            driver = webdriver.Chrome(executable_path=chromdriver_path, options=chrome_options)
-            # enter room
-            button_sequence = ["Accept", "Enter Room"]
-    except:
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+        # enter room
+    button_sequence = ["Join Room", "Accept", "Enter Room"]
     driver.get(link)
-
+    running_drivers.append(driver)
 
 
     for button_text in button_sequence:
@@ -65,23 +54,24 @@ def launchTab(link):
         driver.execute_script("document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'q'}))")
 
 
-def save_RTT_to_csv(proc_log_path, net_log_path, procRTT_csv_path, netRTT_csv_path):
-    # Compute net and process RTT to CSV
-    process_RTT_csv(in_log_path=proc_log_path, out_csv_path=procRTT_csv_path)
-    network_RTT_csv(in_log_path=net_log_path, out_csv_path=netRTT_csv_path)
+def clear_driversCash():
+    for driver in running_drivers:
+        clear_cache(driver)
+    print("Cash of drivers is clear...")
+
 
 if __name__ == '__main__':
     link = 'https://hub.metaust.link/eJ9JEUa/711-demo'
-    dir_name = '../results_vr_platforms/uldl'
-    file_name = 'hubs.uldl'  #
+    dir_name = '../results_platforms/uldl'
+    file_name = 'hubs.uldl'
     concurrent_users = 4
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
 
-    # win_iface = "Wi-Fi"
-    ubuntu_iface = "wlp10s0"
+    win_iface = "Wi-Fi"
+    # ubuntu_iface = "wlp10s0"
     # measure download upload
-    uldl_process = Process(target=measure_accurate_ul_dl, args=(dir_name, file_name, concurrent_users, ubuntu_iface, ))
+    uldl_process = Process(target=measure_accurate_ul_dl, args=(dir_name, file_name, concurrent_users, win_iface, ))
     uldl_process.start()
 
     #create processes = oculus tab

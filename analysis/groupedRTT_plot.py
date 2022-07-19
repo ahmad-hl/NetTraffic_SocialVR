@@ -43,7 +43,7 @@ for dthub_dir_name in dthub_dir_names:
         except FileNotFoundError as err:
             print(err)
             pass
-    dthub_roomaccessDF =  roomaccessDF.assign(network='DT-Hub WiFi')
+    dthub_roomaccessDF =  roomaccessDF.assign(network='Office WiFi')
 roomaccessDF = pd.DataFrame()
 for conf_dir_name in conf_dir_names:
     for user_number in user_numbers:
@@ -56,18 +56,23 @@ for conf_dir_name in conf_dir_names:
         except FileNotFoundError as err:
             print(err)
             pass
-    conf_roomaccessDF =  roomaccessDF.assign(network='Conference WiFi')
+    conf_roomaccessDF =  roomaccessDF.assign(network='Classroom WiFi')
 
 #concatenate dataframes
 roomaccessDF = pd.concat([lab_roomaccessDF, conf_roomaccessDF, dthub_roomaccessDF], ignore_index=True)
 roomaccessDF = roomaccessDF.loc[roomaccessDF['rtt'] != 'timed']
 roomaccessDF['rtt'] = pd.to_numeric(roomaccessDF['rtt'])
+
+
+print(roomaccessDF.loc[roomaccessDF.users_no==2].describe())
 roomaccessDF['rtt'] = roomaccessDF['rtt'] / 1000
 
 sns.set_theme(style="whitegrid")
 font_dict = {'fontsize': 13,
  'fontweight' : 'bold'}
 
+fig, axes = plt.subplots( )
+sns.set(font_scale = 1.2)
 # Draw a nested barplot by species and sex
 g = sns.catplot(
     data=roomaccessDF, kind="bar",
@@ -77,10 +82,11 @@ g = sns.catplot(
 g.despine(left=True)
 g.set_axis_labels("Access Network", "Round-trip Latency (sec)", fontsize=15, fontweight='bold')
 g.legend.remove()
+
 # g.legend.set_title("Concurrent Users")
-plt.legend(loc='upper right', title='Concurrent Users')
+plt.legend(loc='upper right', title='Concurrent Users', fontsize=16)
 
 parentDir = os.path.dirname(os.path.realpath(__file__))
 Fig_PATH = os.path.join(parentDir, 'figures', 'network_netRTT.pdf')
-plt.savefig(Fig_PATH, bbox_inches='tight')
+# plt.savefig(Fig_PATH, bbox_inches='tight')
 plt.show()

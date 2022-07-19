@@ -2,19 +2,15 @@ from selenium import webdriver, common
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from UploadDownload import measure_accurate_ul_dl
 from webdriver_manager.chrome import ChromeDriverManager
 from multiprocessing import Process
-import platform, requests, json
-from createRoom import createRoomBy
 import atexit, os
-from pandas import json_normalize
 from threading import Event
 from clearCash import clear_cache
 
 running_drivers = []
 
-def launchTabs(link):
+def launchTab(link):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--incognito")
     #Make fake audio
@@ -24,7 +20,7 @@ def launchTabs(link):
 
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
-    button_sequence = ["Accept", "Enter Room"]  # "Join Room",
+    button_sequence = ["Join Room","Accept", "Enter Room"]
     driver.get(link)
     running_drivers.append(driver)
 
@@ -63,23 +59,20 @@ def clear_driversCash():
     print("Cash of drivers is clear...")
 
 if __name__ == '__main__':
-    tabs = 4
-    room_uri = 'https://hub.metaust.link/eJ9JEUa/711-demo'
 
-    #download json file on exit
-    dir_name = 'results_platforms/uldl'
-    isExist = os.path.exists(dir_name)
-    if not isExist:
-        os.mkdir(dir_name)
+    room_uri = 'https://hub.metaust.link/eJ9JEUa/711-demo'
+    concurrent_users = 4
+
+    #clear driver on exit
     atexit.register(clear_driversCash)
 
     #create #processes = tabs
     processes = []
-    for _ in range(tabs):
-        p = Process(target=launchTabs, args=(room_uri,))
+    for _ in range(concurrent_users):
+        Event().wait(50)
+        p = Process(target=launchTab, args=(room_uri,))
         p.start()
         processes.append(p)
-        Event().wait(50)
 
 
     # wait for the processes to complete

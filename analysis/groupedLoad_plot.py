@@ -35,14 +35,14 @@ for dthub_dir_name in dthub_dir_names:
         except FileNotFoundError as err:
             print(err)
             pass
-    dthub_roomaccessDF =  roomaccessDF.assign(network='DT-Hub WiFi')
+    dthub_roomaccessDF =  roomaccessDF.assign(network='Office WiFi')
 roomaccessDF = pd.DataFrame()
 for conf_dir_name in conf_dir_names:
     for user_number in user_numbers:
         file_name = '../{}/avroom_load_time_{}.csv'.format(conf_dir_name, user_number)
         out_roomaccessDF = pd.read_csv(file_name, sep=',')
         roomaccessDF = pd.concat([out_roomaccessDF, roomaccessDF], ignore_index=True)
-    conf_roomaccessDF =  roomaccessDF.assign(network='Conference WiFi')
+    conf_roomaccessDF =  roomaccessDF.assign(network='Classroom WiFi')
 
 #concatenate dataframes
 roomaccessDF = pd.concat([lab_roomaccessDF, conf_roomaccessDF, dthub_roomaccessDF], ignore_index=True)
@@ -53,6 +53,7 @@ sns.set_theme(style="whitegrid")
 font_dict = {'fontsize': 13,
  'fontweight' : 'bold'}
 
+fig, axes = plt.subplots( )
 # Draw a nested barplot by species and sex
 g = sns.catplot(
     data=roomaccessDF, kind="bar",
@@ -67,5 +68,5 @@ plt.legend(loc='upper right', title='Concurrent Users')
 
 parentDir = os.path.dirname(os.path.realpath(__file__))
 Fig_PATH = os.path.join(parentDir, 'figures', 'network_load_latency.pdf')
-plt.savefig(Fig_PATH, bbox_inches='tight')
+# plt.savefig(Fig_PATH, bbox_inches='tight')
 plt.show()

@@ -15,26 +15,47 @@ uldl2DF['dl_kBps'] = uldl2DF['dl_kBps'] * 8/1024 # KB/s to Mb/s
 
 NUM_SAMPLES = 40  #[-NUM_SAMPLES:]
 SKIP = 0
-print(uldl2DF[SKIP:NUM_SAMPLES])
-print(uldl2DF[SKIP:NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
+print("Loading Stage")
+# print(uldl2DF[SKIP:NUM_SAMPLES])
+print(uldl2DF[SKIP:SKIP+NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
+#*************************************
+NUM_SAMPLES = 15
+SKIP = 45
+print("Idle Stage")
+# print(uldl2DF[SKIP:SKIP+NUM_SAMPLES])
+print(uldl2DF[SKIP:SKIP+NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
+#*************************************
+NUM_SAMPLES = 50
+SKIP = 60
+print("Avatar Loading Stage")
+# print(uldl2DF[SKIP:SKIP+NUM_SAMPLES])
+print(uldl2DF[SKIP:SKIP+NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
+#*************************************
+NUM_SAMPLES = 50
+SKIP = 60
+print("Avatar Loading Stage")
+# print(uldl2DF[SKIP:SKIP+NUM_SAMPLES])
+print(uldl2DF[SKIP:SKIP+NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
+#*************************************
+NUM_SAMPLES = 70
+SKIP = 130
+print("Interaction with U2")
+# print(uldl2DF[SKIP:NUM_SAMPLES])
+print(uldl2DF[SKIP:SKIP+NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
+#*************************************
+NUM_SAMPLES = 35
+SKIP = 226
+print("Interaction with U2 & U3")
+# print(uldl2DF[SKIP:NUM_SAMPLES])
+print(uldl2DF[SKIP:SKIP+NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
+#*************************************
+NUM_SAMPLES = 30
+SKIP = 260
+print("U2 & U3 Left: Idle")
+# print(uldl2DF[SKIP:NUM_SAMPLES])
+print(uldl2DF[SKIP:SKIP+NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
 
-
-NUM_SAMPLES = 225 #[-NUM_SAMPLES:]
-SKIP = 125
-print(uldl2DF[SKIP:NUM_SAMPLES])
-print(uldl2DF[SKIP:NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
-
-NUM_SAMPLES = 260  #[-NUM_SAMPLES:]
-SKIP = 225
-print(uldl2DF[SKIP:NUM_SAMPLES])
-print(uldl2DF[SKIP:NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
-
-
-NUM_SAMPLES = 40  #[-NUM_SAMPLES:]
-SKIP = 0
-print(uldl2DF[SKIP:NUM_SAMPLES])
-print(uldl2DF[SKIP:NUM_SAMPLES][['ul_kBps', 'dl_kBps']].describe())
-
+print("User study")
 
 
 def compute_stats(VRsurveyDF, factors):

@@ -2,7 +2,7 @@ from selenium import webdriver, common
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Spatial_ULDL import measure_accurate_ul_dl
+from MeasureULDL import measure_accurate_ul_dl
 from webdriver_manager.chrome import ChromeDriverManager
 from multiprocessing import Process
 from selenium.webdriver.common.keys import Keys
@@ -42,13 +42,7 @@ def launchTab(link):
     # WebDriverWait(driver, 500).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Leave")))
     while True:
         ActionChains(driver).key_down(Keys.ARROW_RIGHT).perform()
-        ActionChains(driver).key_down(Keys.ARROW_RIGHT).perform()
-        ActionChains(driver).key_down(Keys.ARROW_LEFT).perform()
-        ActionChains(driver).key_down(Keys.ARROW_LEFT).perform()
         ActionChains(driver).key_down(Keys.ARROW_UP).perform()
-        ActionChains(driver).key_down(Keys.ARROW_UP).perform()
-        ActionChains(driver).key_down(Keys.ARROW_DOWN).perform()
-        ActionChains(driver).key_down(Keys.ARROW_DOWN).perform()
 
 def clear_driversCash():
     for driver in running_drivers:
@@ -57,16 +51,16 @@ def clear_driversCash():
 
 if __name__ == '__main__':
     link = 'https://spatial.io/rooms/6226a6d81d7048000115b255?share=7771562277452031497'
-    dir_name = '../results_vr_platforms/uldl'
+    dir_name = '../results_platforms/uldl'
     file_name = 'spatial.uldl'
     concurrent_users = 4
 
-    # win_iface = "Wi-Fi"
-    ubuntu_iface = "wlp10s0"
+    win_iface = "Wi-Fi"
+    # ubuntu_iface = "wlp10s0"
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
     # measure download upload
-    uldl_process = Process(target=measure_accurate_ul_dl, args=(dir_name,file_name, concurrent_users, ubuntu_iface, ))
+    uldl_process = Process(target=measure_accurate_ul_dl, args=(dir_name,file_name, concurrent_users, win_iface, ))
     uldl_process.start()
 
     #create processes = oculus tab

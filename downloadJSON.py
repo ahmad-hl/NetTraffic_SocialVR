@@ -49,8 +49,8 @@ def downloadJSON_to_csv(tabs, room_id, out_dir_name):
 
 
 if __name__ == '__main__':
-    dir_name = 'results_ux/synth15'
+    dir_name = 'results_conf/synth18'
     isExist = os.path.exists(dir_name)
     if not isExist:
         os.mkdir(dir_name)
-    downloadJSON_to_csv(16, 'eJ9JEUa', dir_name)
+    downloadJSON_to_csv(8, '8kes5wp', dir_name)

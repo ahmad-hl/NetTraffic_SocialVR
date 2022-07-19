@@ -32,7 +32,7 @@ def categorize_DF(VRsurveyDF):
 if __name__ == '__main__':
 
     in_dir_name = 'results_ux'
-    file_name = '../{}/VRsurvey.csv'.format(in_dir_name)
+    file_name = '../{}/QoE.csv'.format(in_dir_name)
     VRsurveyDF = pd.read_csv(file_name, sep =',')
     factors = ['frustration', 'mental', 'load', 'immersion','success']
     user_dict,user_mean_dict,user_ci_dict = compute_stats(VRsurveyDF, factors=factors)

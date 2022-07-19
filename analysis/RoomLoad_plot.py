@@ -59,9 +59,9 @@ fig, ax = plt.subplots(1) #, figsize=(10,7)
 plt.margins(0.01, 0)
 # color='skyblue': indianred, dodgerblue, turquoise, mediumseagreen, lightgreen
 p1 = ax.bar(ind, avatarMeans, width, yerr=avatarCIs, color='dodgerblue', log=False,
-            capsize=3, error_kw=dict(elinewidth=1, ecolor='blue'), label='Avatar Loaded')
+            capsize=3, error_kw=dict(elinewidth=1, ecolor='blue'), label='Avatar Download')
 p2 = ax.bar(ind, loadMeans, width, yerr=loadCIs, color='skyblue', log=False,
-            capsize=3, error_kw=dict(elinewidth=1, ecolor='black'), label='Room Joined')
+            capsize=3, error_kw=dict(elinewidth=1, ecolor='black'), label='Model Download')
 plt.margins(0.01, 0)
 
 # Optional code - Make plot look nicer
