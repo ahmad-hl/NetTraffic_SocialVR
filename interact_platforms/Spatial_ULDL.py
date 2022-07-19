@@ -48,7 +48,7 @@ def measure_accurate_ul_dl(dir_name, file_name, tabs = 1, interface = "Wi-Fi" ):
 if __name__ == '__main__':
     tabs = 1 #int(sys.argv[1])
     ubuntu_iface = "wlp10s0"
-    dir_name = "results_vr_platforms/uldllog"
+    dir_name = "../results_vr_platforms/uldllog"
     file_name = 'spatial.uldl' #
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)

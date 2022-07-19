@@ -41,12 +41,14 @@ def launchTab(link):
     # walk around
     # WebDriverWait(driver, 500).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Leave")))
     while True:
-        ActionChains(driver).key_down(Keys.ARROW_LEFT).perform()
+        ActionChains(driver).key_down(Keys.ARROW_RIGHT).perform()
         ActionChains(driver).key_down(Keys.ARROW_RIGHT).perform()
         ActionChains(driver).key_down(Keys.ARROW_LEFT).perform()
+        ActionChains(driver).key_down(Keys.ARROW_LEFT).perform()
         ActionChains(driver).key_down(Keys.ARROW_UP).perform()
-        ActionChains(driver).key_down(Keys.ARROW_RIGHT).perform()
         ActionChains(driver).key_down(Keys.ARROW_UP).perform()
+        ActionChains(driver).key_down(Keys.ARROW_DOWN).perform()
+        ActionChains(driver).key_down(Keys.ARROW_DOWN).perform()
 
 def clear_driversCash():
     for driver in running_drivers:
@@ -55,9 +57,9 @@ def clear_driversCash():
 
 if __name__ == '__main__':
     link = 'https://spatial.io/rooms/6226a6d81d7048000115b255?share=7771562277452031497'
-    dir_name = 'results_vr_platforms/uldl'
+    dir_name = '../results_vr_platforms/uldl'
     file_name = 'spatial.uldl'
-    concurrent_users = 2
+    concurrent_users = 4
 
     # win_iface = "Wi-Fi"
     ubuntu_iface = "wlp10s0"
