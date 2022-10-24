@@ -41,8 +41,10 @@ def launchTab(link):
     # walk around
     # WebDriverWait(driver, 500).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Leave")))
     while True:
-        ActionChains(driver).key_down(Keys.ARROW_RIGHT).perform()
-        ActionChains(driver).key_down(Keys.ARROW_UP).perform()
+        ActionChains(driver).key_down('w').perform()
+        ActionChains(driver).key_down('q').perform()
+        ActionChains(driver).key_down('q').perform()
+
 
 def clear_driversCash():
     for driver in running_drivers:
@@ -50,10 +52,11 @@ def clear_driversCash():
     print("Cash of drivers is clear...")
 
 if __name__ == '__main__':
-    link = 'https://spatial.io/rooms/6226a6d81d7048000115b255?share=7771562277452031497'
+    # link = 'https://spatial.io/rooms/6226a6d81d7048000115b255?share=7771562277452031497'
+    link = 'https://spatial.io/s/names-Lo-Fi-Meetup-62d665622eeb4a0001f588dc?share=2513047764259295594'
     dir_name = '../results_platforms/uldl'
     file_name = 'spatial.uldl'
-    concurrent_users = 4
+    concurrent_users = 2
 
     win_iface = "Wi-Fi"
     # ubuntu_iface = "wlp10s0"
@@ -69,7 +72,6 @@ if __name__ == '__main__':
 
     # wait for the processes to complete
     spatialTab_proc.join()
-    uldl_process.terminate()
 
 
 
